@@ -47,6 +47,26 @@
       </tr>
     </thead>
     <tbody>
+      
+      <tr>
+        <td>Generator 1</td>
+        <td>John</td>
+        <td>Zone 1</td>
+        <td>50</td>
+        <td>Done</td>
+        <td>Needs check</td>
+      </tr>
+      <tr>
+        <td>Generator 2</td>
+        <td>Jane</td>
+        <td>Zone 2</td>
+        <td>50</td>
+        <td>Done</td>
+        <td>Needs check</td>
+      </tr>
+      
+      
+      
       <tr>
         <td>Hitachi ZX135US</td>
         <td>Rakesh</td>
@@ -111,11 +131,39 @@
         <td>Done</td>
         <td>Usually needs filling every other day</td>
       </tr>
+
+      <p>
+        <button id="fillMeUpBtn"><strong>Fill Me Up</strong></button>
+        <button><strong>Check Status</strong></button>
+        <button><strong>Reset</strong></button>
+        <button><strong>Print</strong></button>
+      </p>
+
+      <!-- Dog image and speech bubble (hidden by default) -->
+      <div id="dogContainer">
+        <img src="images/happy-black-dog.jpg" alt="Happy Black Dog" id="dogImage">
+        <div id="speechBubble">
+          <span>The glass is half full!</span>
+        </div>
+      </div>
+
+
+
       
     </tbody>
   </table>
 </section></p>
     </section>
   </main>
+  <script>
+    document.getElementById('fillMeUpBtn').onclick = function() {
+      document.getElementById('dogContainer').style.display = 'block';
+      var bubble = document.getElementById('speechBubble');
+      bubble.style.display = 'block';
+      setTimeout(function() {
+        bubble.style.display = 'none';
+      }, 2000);
+    };
+  </script>
 </body>
 </html>

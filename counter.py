@@ -1,12 +1,15 @@
+import datetime
+import sqlite3
+
 #diesel_Counter
 #record fuel with given timestamp
 
 data = {
     "generators": {
-        "Zone 1": True,
-        "Zone 2": False,
-        "Zone 3": False,
-        "Zone 4": False
+        "Gen Zone 1": False,
+        "Gen Zone 2": False,
+        "Gen Zone 3": False,
+        "Gen Zone 4": False
     },
     "komatsu": {
         "komatsu pc210": False,
@@ -34,7 +37,22 @@ data = {
     }
         }
 
-import datetime
+con = sqlite3.connect("data/fuel_data.db")
+cur = con.cursor()
+
+cur.execute("CREATE TABLE fuel (name TEXT PRIMARY KEY, LOCATION text, litres INTEGER, date TEXT, operator TEXT)")
+cur.execute("""
+INSERT INTO fuel VALUES
+            ("Generator", "Zone 1", 34, "25/07/2025", "Null"),
+            ("Generator", "Zone 2", 43, "25/07/2025", "Null"),
+            ("Generator", "Zone 3", 46, "25/07/2025", "Null"),
+            ("Generator", "Zone 4", 45, "25/07/2025", "Null"),
+
+            
+""")
+
+con.commit()
+
 
 x = datetime.datetime.now()
 

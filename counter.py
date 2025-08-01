@@ -53,6 +53,7 @@ CREATE TABLE fuel (
 )
 """)
 
+
 # Insert initial data
 fuel_data = [
     ("Generator", "Zone 1", 34, "25/07/2025", "Null"),
@@ -76,14 +77,45 @@ fuel_data = [
 
 
 
+cur.executemany("""
+    INSERT OR IGNORE INTO fuel (name, location, litres, date, operator)
+    VALUES (?, ?, ?, ?, ?)
+""", fuel_data)
+
 con.commit()
+
+threshold = 3000
+
+def get_total_fuel_alert(con):
+    cur = con.cursor()
+    cur.execute("SELECT SUM(litres) FROM fuel")
+    total_litres = (cur.fetchone()[0])
+    return total_litres if total_litres is not None else 0
+
+total = get_total_fuel_alert(con)
+print (f"total fuel usage so far: {total} litres")
+
+
+
+def check_low_fuel_usage(con, threshold):
+    cur = con.cursor()
+    cur.execute("SELECT SUM(litres) FROM fuel")
+    total_litres = cur.fetchone()[0]
+
+    if total_litres is not None and total_litres <= threshold:
+        print(f"ALERT: Fuel Bowser is nearly empty ({total_litres} litres). Next fuel delivery is due.")
+    else:
+        print(f"Fuel usage is at {total_litres} litres. All good!")
+
+    return total_litres
+
 
 
 x = datetime.datetime.now()
 
 print(x)
 print(x.year)
-print(x.strftime("%H, %M, %S"))
+
 
 
 
